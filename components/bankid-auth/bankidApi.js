@@ -5,7 +5,7 @@ router.post('/auth', async (req, res) => {
     try {
         const { endUserIp } = req.body;
 
-        return res.send(
+        return res.json(
             await bankid.auth(endUserIp)
         );
     } catch (err) {
