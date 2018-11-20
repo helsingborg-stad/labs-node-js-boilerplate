@@ -13,7 +13,7 @@ const validateRequest = SchemaValidator(true);
 */
 //changed to get temp, it was post
 router.get('/',/*validateRequest,*/ async (req, res) => {
-    console.log("save method")
+    console.log("getPerson EndPoint")
     /*
     const { name } = req.body;
     const newPlayer = new Player(1000, name);
