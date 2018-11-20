@@ -1,11 +1,38 @@
 const router = require('express').Router();
 const bankid = require('./bankid');
 
-router.get('/', async (req, res) => {
-    console.log('bankidapi');
+router.post('/auth', async (req, res) => {
     try {
+        const { endUserIp } = req.body;
+
+        return res.send(
+            await bankid.auth(endUserIp)
+        );
+    } catch (err) {
+        console.log(err);
+        res.json(err);
+    }
+});
+
+router.post('/sign', async (req, res) => {
+    try {
+        const { endUserIp, personalNumber, userVisibleData } = req.body;
+
         return res.json(
-            await bankid.test()
+            await bankid.sign(endUserIp, personalNumber, userVisibleData)
+        );
+    } catch (err) {
+        console.log(err);
+        res.json(err);
+    }
+});
+
+router.post('/collect', async (req, res) => {
+    try {
+        const { orderRef } = req.body;
+
+        return res.json(
+            await bankid.collect(orderRef)
         );
     } catch (err) {
         console.log(err);
