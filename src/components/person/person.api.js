@@ -1,12 +1,12 @@
 const express = require('express');
-const dal = require('./dal');
-const schema = require('./schema');
+const dal = require('./person.dal');
+const { requestSchema } = require('./person.schema');
 const Validator = require('../..//middlewares/validator.middleware');
 
 const routes = () => {
   const router = express.Router();
   // Register middleware that will authenticate input against the specified schema
-  const validateRequest = Validator(schema, true);
+  const validateRequest = Validator(requestSchema, true);
 
   // Here we register what endpoints we want.
   router.get('/test/:id', async (req, res) => {

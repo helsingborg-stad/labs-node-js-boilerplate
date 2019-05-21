@@ -1,6 +1,6 @@
 const express = require('express');
 
-const person = require('./person/api');
+const person = require('./person/person.api');
 
 const routes = () => {
   const router = express.Router();
