@@ -1,5 +1,5 @@
 const axios = require('axios');
-const responseSchema = require('./response.schema');
+const { responseSchema } = require('./person.schema');
 const { validate } = require('../../validation/validation');
 const logger = require('../../utils/logger');
 
@@ -17,8 +17,7 @@ const fetchTestData = async () => {
     const response = await client.post(testApi);
 
     // Validate response against schema
-    const validatedResponse = await validate(response.data, responseSchema);
-    return validatedResponse;
+    return await validate(response.data, responseSchema);
   } catch (error) {
     logger.error(error);
     throw error;
