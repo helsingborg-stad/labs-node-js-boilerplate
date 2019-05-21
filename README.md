@@ -10,12 +10,10 @@ everything from how the app is set up to routing and validation.
 2. Install dependencies with npm install
 3. Create .env-file in the root folder with these properties
 ````
-   PORT=3000 #(or any other port you prefer)    
-   LOG_LEVEL=info #(trace, debug, info, warn, error, fatal, silent)    
+   PORT=3000 #(or any other port you prefer)
+   LOG_LEVEL=info #(trace, debug, info, warn, error, fatal, silent)
 ````
 4. Run project with ```npm run dev```
-
-Certificate files for development purposes are included in this project to speed up the initial setup, but should be gitignored in the new forked project before deployment.
 
 ## Documentation
 
@@ -28,7 +26,7 @@ The project uses [mocha](https://mochajs.org/) + [chai](https://www.chaijs.com/)
 Running tests:
 
 1. Create .env.test-file in the root folder with same settings as the regular .env but with a different port.
-2. Run the command ```npm run test```    
+2. Run the command ```npm run test```
 
 To run the tests on code-changes, use ```npm run test:watch```
 
