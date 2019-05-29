@@ -2,9 +2,6 @@ const { validate } = require('../validation/validation');
 const { WeakValidationError } = require('../utils/error');
 const logger = require('../utils/logger');
 
-// enabled HTTP methods for request data validation
-const supportedMethods = ['post', 'put'];
-
 // Joi validation options
 const validationOptions = {
   abortEarly: false, // abort after the last validation error
@@ -18,14 +15,12 @@ const validationOptions = {
  *
  * @returns {Function} the validation middleware
  */
-const middleware = (schema, detailedError = false) => (req, res, next) => {
-  if (!supportedMethods.includes(req.method.toLowerCase())) {
-    next();
-    return;
-  }
-
-  validate(req.body, schema, validationOptions)
-    .then(() => next())
+const middleware = (schema, field = 'body', detailedError = false) => (req, res, next) => {
+  validate(req[field], schema, validationOptions)
+    .then((validated) => {
+      req[field] = validated;
+      next();
+    })
     .catch((e) => {
       logger.error(e);
 
