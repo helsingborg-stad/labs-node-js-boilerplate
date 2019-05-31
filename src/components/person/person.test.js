@@ -7,7 +7,7 @@ const server = require('../../app');
 const should = chai.should();
 chai.use(chaiHttp);
 
-describe('Notification', () => {
+describe('Person', () => {
   after(async () => {
     server.close();
   });
