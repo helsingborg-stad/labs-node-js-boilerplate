@@ -4,5 +4,12 @@
   },
   "SERVER": {
     "PORT": "env_placeholder"
+  },
+  "MYSQL": {
+    "HOST": "127.0.0.1",
+    "DB": "Dummy",
+    "CONNECTION_LIMIT": 10,
+    "USER": "root",
+    "PASSWORD": "root"
   }
 }
