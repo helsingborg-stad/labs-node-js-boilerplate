@@ -3,7 +3,7 @@ const config = require('config');
 const pino = require('express-pino-logger');
 const swaggerUi = require('swagger-ui-express');
 const bodyParser = require('body-parser');
-const swaggerDocument = require('../swagger/swagger.json');
+const swaggerDocument = require('../swagger/swagger.js');
 const routes = require('./components/routes');
 const logger = require('./utils/logger');
 

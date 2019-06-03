@@ -76,9 +76,9 @@ const routes = () => {
   router.post('/', Validator(postSchema, 'body', true), async (req, res) => {
     try {
       const { body } = req;
-      const result = await Persons.create(body);
+      await Persons.create(body);
 
-      return res.json(result);
+      return res.send('Person created successfully.');
     } catch (err) {
       return res.status(err.status || 500).json(err);
     }

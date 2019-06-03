@@ -6,6 +6,7 @@ const knexConfig = config.util.loadFileConfigs(path.join(__dirname, '/../../conf
 config.util.setModuleDefaults('KNEX', knexConfig);
 
 const MYSQL_HOST = config.get('KNEX.MYSQL.HOST');
+const MYSQL_PORT = config.get('KNEX.MYSQL.PORT');
 const MYSQL_DB = config.get('KNEX.MYSQL.DB');
 const MYSQL_USER = config.get('KNEX.MYSQL.USER');
 const MYSQL_PASSWORD = config.get('KNEX.MYSQL.PASSWORD');
@@ -17,6 +18,7 @@ module.exports = {
     client: 'mysql',
     connection: {
       host: MYSQL_HOST,
+      port: MYSQL_PORT,
       user: MYSQL_USER,
       password: MYSQL_PASSWORD,
       database: MYSQL_DB,
