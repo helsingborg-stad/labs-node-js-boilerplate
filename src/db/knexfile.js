@@ -13,16 +13,15 @@ const MYSQL_PASSWORD = config.get('KNEX.MYSQL.PASSWORD');
 const MYSQL_CONNECTION_LIMIT = config.get('KNEX.MYSQL.CONNECTION_LIMIT');
 
 module.exports = {
-
   development: {
     client: 'mysql',
     connection: {
       host: MYSQL_HOST,
-      port: MYSQL_PORT,
+      port: Number(MYSQL_PORT),
       user: MYSQL_USER,
       password: MYSQL_PASSWORD,
       database: MYSQL_DB,
     },
-    pool: { min: 0, max: MYSQL_CONNECTION_LIMIT },
+    pool: { min: 0, max: Number(MYSQL_CONNECTION_LIMIT) },
   },
 };
