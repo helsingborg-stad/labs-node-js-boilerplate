@@ -68,7 +68,6 @@ const personPath = {
         name: 'person_id',
         in: 'query',
         description: 'The user id of the person',
-        required: true,
         type: 'string',
       },
       {

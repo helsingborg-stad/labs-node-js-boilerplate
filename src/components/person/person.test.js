@@ -75,13 +75,12 @@ describe('Person', () => {
 
   it('should allow POST with valid body on real query', async () => chai
     .request(server)
-    .post('/person/fake')
+    .post('/person')
     .send({
       person_id: 'john_snow',
     })
     .then((res) => {
       res.should.have.status(200);
-      res.should.be.json;
       should.exist(res.body);
     }));
 
