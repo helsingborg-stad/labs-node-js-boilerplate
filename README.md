@@ -5,6 +5,7 @@ This boilerplats is built on nodejs and express. It includes an example that sho
 everything from how the app is set up to routing and validation.
 
 ## Development
+Prerequisite: local MySQL server running
 
 1. Clone repository
 2. Install dependencies with npm install
@@ -13,7 +14,8 @@ everything from how the app is set up to routing and validation.
    PORT=3000 #(or any other port you prefer)
    LOG_LEVEL=info #(trace, debug, info, warn, error, fatal, silent)
 ````
-4. Run project with ```npm run dev```
+4. run ```npm run migrate:latest``` (this will migrate your mysql schemas to the latest version)
+5. Run project with ```npm run dev```
 
 ## Documentation
 

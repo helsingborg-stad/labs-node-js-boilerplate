@@ -1,5 +1,6 @@
 const express = require('express');
 const dal = require('./person.dal');
+const Persons = require('./person.db');
 const { postSchema, querySchema } = require('./person.schema');
 const Validator = require('../..//middlewares/validator.middleware');
 
@@ -50,11 +51,10 @@ const routes = () => {
     try {
       // Get the parameters from the request
       const { id } = req.params;
-
-      // TODO
+      const result = await Persons.query({ id });
 
       // Convert response to json before sending it.
-      return res.json({ person_id: id });
+      return res.json(result);
     } catch (err) {
       // Send back error in json.
       return res.status(err.status || 500).json(err);
@@ -63,8 +63,10 @@ const routes = () => {
 
   router.get('/', Validator(querySchema, 'query', true), async (req, res) => {
     try {
-      // TODO
-      return res.json(req.query);
+      const { query } = req;
+      const result = await Persons.query(query);
+
+      return res.json(result);
     } catch (err) {
       // Send back error in json.
       return res.status(err.status || 500).json(err);
@@ -73,8 +75,10 @@ const routes = () => {
 
   router.post('/', Validator(postSchema, 'body', true), async (req, res) => {
     try {
-      // TODO
-      return res.json(req.body);
+      const { body } = req;
+      const result = await Persons.create(body);
+
+      return res.json(result);
     } catch (err) {
       return res.status(err.status || 500).json(err);
     }
