@@ -7,9 +7,10 @@
   },
   "MYSQL": {
     "HOST": "127.0.0.1",
-    "DB": "Dummy",
+    "PORT": 3306,
+    "DB": "hbgworks_db",
     "CONNECTION_LIMIT": 10,
-    "USER": "root",
-    "PASSWORD": "root"
+    "USER": "hbgworks_user",
+    "PASSWORD": "hbgworks_pw"
   }
 }

@@ -3,6 +3,9 @@ const up = async (db) => {
     t.increments('id').unsigned().primary();
     t.string('person_id').notNull();
     t.dateTime('created_at').notNull().defaultsTo(db.fn.now());
+
+    // indices
+    t.unique('person_id');
   });
 };
 

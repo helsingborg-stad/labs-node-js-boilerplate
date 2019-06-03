@@ -1,6 +1,7 @@
 const config = require('config');
 
 const MYSQL_HOST = config.get('MYSQL.HOST');
+const MYSQL_PORT = config.get('MYSQL.PORT');
 const MYSQL_DB = config.get('MYSQL.DB');
 const MYSQL_USER = config.get('MYSQL.USER');
 const MYSQL_PASSWORD = config.get('MYSQL.PASSWORD');
@@ -12,6 +13,7 @@ const client = Knex({
   client: 'mysql',
   connection: {
     host: MYSQL_HOST,
+    port: MYSQL_PORT,
     user: MYSQL_USER,
     password: MYSQL_PASSWORD,
     database: MYSQL_DB,
