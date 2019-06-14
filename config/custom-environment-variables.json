@@ -3,7 +3,7 @@
     "LEVEL": "LOG_LEVEL"
   },
   "SERVER": {
-    "PORT": "SERVER_PORT"
+    "PORT": "PORT"
   },
   "MYSQL": {
     "HOST": "MYSQL_HOST",

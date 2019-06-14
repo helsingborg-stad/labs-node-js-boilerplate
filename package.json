@@ -2,10 +2,10 @@
   "name": "labsnodejsboiler",
   "version": "0.0.1",
   "description": "Boilerplate repository for nodejs based LABS projects.",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "start": "NODE_ENV=production node -r dotenv/config src/app.js",
-    "dev": "nodemon -r dotenv/config src/app.js | ./node_modules/.bin/pino-colada",
+    "start": "NODE_ENV=production node -r dotenv/config src/server.js",
+    "dev": "nodemon -r dotenv/config src/server.js | ./node_modules/.bin/pino-colada",
     "test": "NODE_ENV=test ./node_modules/.bin/mocha src/components/**/*.test.js",
     "test:watch": "./node_modules/.bin/mocha src/components/**/*.test.js --watch",
     "lint": "./node_modules/eslint/bin/eslint.js src/**",
@@ -39,6 +39,7 @@
     "pino": "^5.12.5",
     "redis": "^2.8.0",
     "soap": "^0.27.1",
-    "swagger-ui-express": "^4.0.2"
+    "swagger-ui-express": "^4.0.2",
+    "ws": "^7.0.0"
   }
 }
