@@ -4,10 +4,7 @@ const logger = require('./utils/logger');
 
 const PING_INTERVAL_MS = 10 * 1000; // 58 seconds
 
-const message = async (type, data) => {
-  const json = Buffer.from(JSON.stringify({ type, data }));
-  return json;
-};
+const message = (type, data) => Buffer.from(JSON.stringify({ type, data }));
 
 /* eslint-disable no-param-reassign */
 class WebSocketServer {
@@ -35,7 +32,7 @@ class WebSocketServer {
    * @param { Object } data - the event payload
    */
   async broadcast(type, data) {
-    const msg = await message(type, data);
+    const msg = message(type, data);
     this.server.clients.forEach((socket) => {
       if (socket.readyState === ws.OPEN) {
         this.sendTo(socket, msg);
@@ -52,7 +49,7 @@ class WebSocketServer {
     socket.on('pong', () => { socket.isAlive = true; });
     socket.on('error', () => { socket.terminate(); });
     this.emit('connected', {
-      send: async (type, data) => this.sendTo(socket, await message(type, data), { binary: true }),
+      send: async (type, data) => this.sendTo(socket, message(type, data), { binary: true }),
       state: async state => this.sendTo(socket, state),
     });
     ws.send('something');
