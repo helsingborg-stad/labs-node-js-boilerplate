@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const https = require('https');
 const pino = require('express-pino-logger');
