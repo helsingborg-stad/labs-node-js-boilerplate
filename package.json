@@ -4,8 +4,8 @@
   "description": "Boilerplate repository for nodejs based LABS projects.",
   "main": "server.js",
   "scripts": {
-    "start": "NODE_ENV=production node -r dotenv/config src/server.js",
-    "dev": "nodemon -r dotenv/config src/server.js | ./node_modules/.bin/pino-colada",
+    "start": "NODE_ENV=production node src/server.js",
+    "dev": "NODE_ENV=develop nodemon src/server.js | ./node_modules/.bin/pino-colada",
     "test": "NODE_ENV=test ./node_modules/.bin/mocha src/components/**/*.test.js",
     "test:watch": "./node_modules/.bin/mocha src/components/**/*.test.js --watch",
     "lint": "./node_modules/eslint/bin/eslint.js src/**",
@@ -29,7 +29,6 @@
     "@hapi/joi": "^15.0.1",
     "axios": "^0.18.0",
     "body-parser": "^1.19.0",
-    "config": "^3.1.0",
     "dotenv": "^8.0.0",
     "easy-soap-request": "^2.5.0",
     "express": "^4.16.4",
