@@ -10,7 +10,8 @@
     "test:watch": "./node_modules/.bin/mocha src/components/**/*.test.js --watch",
     "lint": "./node_modules/eslint/bin/eslint.js src/**",
     "migrate:latest": "./node_modules/.bin/knex --cwd src/db/ migrate:latest",
-    "migrate:rollback": "./node_modules/.bin/knex --cwd src/db/ migrate:rollback"
+    "migrate:rollback": "./node_modules/.bin/knex --cwd src/db/ migrate:rollback",
+    "setup": "node setup.js"
   },
   "author": "Helsingborg Stad",
   "license": "MIT",
