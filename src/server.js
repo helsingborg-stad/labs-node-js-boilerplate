@@ -1,5 +1,4 @@
 const express = require('express');
-const config = require('config');
 const https = require('https');
 const pino = require('express-pino-logger');
 const swaggerUi = require('swagger-ui-express');
@@ -12,7 +11,7 @@ const WebSocketServer = require('./ws.server');
 /**
  * Config
  */
-const SERVER_PORT = config.get('SERVER.PORT');
+const { PORT } = process.env;
 const API_BASE = '/api/v1';
 
 /**
@@ -45,8 +44,8 @@ const webSocketServer = new WebSocketServer(server, `${API_BASE}/ws`);
  */
 
 // Listen on port specfied in env-file.
-server.listen({ port: SERVER_PORT }, async () => {
-  logger.info(`Server started on port ${SERVER_PORT}`);
+server.listen({ port: PORT }, async () => {
+  logger.info(`Server started on port ${PORT}`);
   webSocketServer.start();
 });
 
