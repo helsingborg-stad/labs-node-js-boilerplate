@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const fs = require('fs');
 
 const sourceFile = '.env-example';
@@ -7,9 +8,9 @@ createFiles.forEach((createFile) => {
   try {
     if (!fs.existsSync(createFile)) {
       fs.createReadStream(sourceFile).pipe(fs.createWriteStream(createFile));
-      console.log('Created file ${createFile} from sourceFile');
+      console.log(`Created file ${createFile} from sourceFile`);
     } else {
-      console.error('File ${createFile} already exists.');
+      console.error(`File ${createFile} already exists.`);
     }
   } catch (err) {
     console.error(err);
