@@ -1,0 +1,23 @@
+{
+    "get": {
+      "tags": ["CRUD operations"],
+      "summary": "Query examples",
+      "description": "Query multiple examples.",
+      "operationId": "queryExamples",
+      "parameters": [],
+      "responses": {
+        "200": {
+            "description": "",
+            "schema": {
+                "$ref": "../definitions/definitions.swagger.json#/success"
+            }
+        },
+        "422": {
+          "description": "Json Api Error",
+          "schema": {
+            "$ref": "../definitions/definitions.swagger.json#/failure"
+          }
+        }
+      }
+    }
+}

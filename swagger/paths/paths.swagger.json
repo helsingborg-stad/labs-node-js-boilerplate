@@ -1,0 +1,8 @@
+{
+  "/forms": {
+    "$ref": "examples.swagger.json"
+  },
+  "/forms/{id}": {
+    "$ref": "example.swagger.json"
+  }
+}

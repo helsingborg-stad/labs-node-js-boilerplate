@@ -1,0 +1,32 @@
+{
+    "get": {
+      "tags": ["CRUD operations"],
+      "summary": "Query a single example resource on id",
+      "description": "Detaild description",
+      "operationId": "queryExample",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "The id of the example resource",
+          "type": "string"
+        }
+      ],
+      "responses": {
+        "200": {
+            "description": "",
+            "schema": {
+                "$ref": "../definitions/definitions.swagger.json#/success"
+            }
+          
+        },
+        "422": {
+          "description": "Json Api Error",
+          "schema": {
+            "$ref": "../definitions/definitions.swagger.json#/failure"
+          }
+        }
+      }
+    }
+  }
+
