@@ -1,22 +1,10 @@
-const { personPath, personsSchema } = require('../src/components/person/person.swagger');
-const { definitions } = require('../swagger/global.swagger');
+const swaggerSchema = require('./swagger.json');
 
-module.exports = {
-  swagger: '2.0',
-  info: {
-    version: '0.0.1',
-    title: 'Simple API',
-    description: 'Api document to test and document all available API functionality',
-  },
-  host: 'simple.api',
-  paths: {
-    '/person': {
-      post: personPath.post,
-      get: personPath.get,
-    },
-  },
-  definitions: {
-    ...definitions,
-    ...personsSchema,
-  },
-};
+/*
+ * In order to get the swagger documentation up to date with your endpoints
+ * You will need to replace the example pathes in swagger/paths
+ * REMOVE THIS COMMENT AFTER SETUP.
+ */
+
+// eslint-disable-next-line no-return-assign
+module.exports = swaggerSchema;

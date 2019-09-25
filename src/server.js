@@ -32,6 +32,7 @@ app.use(pino({ logger }));
 /**
  * Routes
  */
+
 app.use(routes());
 
 /**
@@ -52,7 +53,9 @@ jsonSchemaRefParser.dereference(swaggerDocument, (err, schema) => {
 /**
  * Create WebSocket server
  */
+
 // const webSocketServer = new WebSocketServer(app, `${API_BASE}/ws`);
+
 
 /**
  * Start
