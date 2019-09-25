@@ -1,3 +1,7 @@
+/**
+ * Helper function for converting knex query data to a json-api seralizable data object
+ */
+
 const createDataObject = (data) => {
   const { relations, attributes } = data;
   const resourceData = {
