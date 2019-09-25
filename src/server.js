@@ -9,13 +9,12 @@ const jsonSchemaRefParser = require('json-schema-ref-parser');
 const swaggerDocument = require('../swagger/swagger.js');
 const routes = require('./components/routes');
 const logger = require('./utils/logger');
-const WebSocketServer = require('./ws.server');
+// const WebSocketServer = require('./ws.server');
 
 /**
- * Config
+ * Enviorment Variabels
  */
-const { PORT } = process.env;
-const API_BASE = '/api/v1';
+const { PORT, API_BASE } = process.env;
 
 /**
  * Init App
@@ -33,8 +32,8 @@ app.use(pino({ logger }));
 /**
  * Routes
  */
-app.get('/', (req, res) => res.send('Hello World!'));
-app.use(API_BASE, routes());
+
+app.use(routes());
 
 /**
  * Swagger
@@ -51,19 +50,19 @@ jsonSchemaRefParser.dereference(swaggerDocument, (err, schema) => {
   }
 });
 
-const server = https.createServer(app);
-
 /**
  * Create WebSocket server
  */
-// const webSocketServer = new WebSocketServer(server, `${API_BASE}/ws`);
+
+// const webSocketServer = new WebSocketServer(app, `${API_BASE}/ws`);
+
 
 /**
  * Start
  * Listen on port specfied in env-file.
  */
 
-server.listen({ port: PORT }, async () => {
+const server = app.listen({ port: PORT }, async () => {
   logger.info(`Server started on port ${PORT}`);
   // webSocketServer.start();
 });

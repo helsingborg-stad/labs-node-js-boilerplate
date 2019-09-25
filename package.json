@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "NODE_ENV=production node src/server.js",
-    "dev": "NODE_ENV=develop nodemon src/server.js | ./node_modules/.bin/pino-colada",
+    "dev": "nodemon src/server.js | ./node_modules/.bin/pino-colada",
     "test": "NODE_ENV=test ./node_modules/.bin/mocha src/components/**/*.test.js",
     "test:watch": "./node_modules/.bin/mocha src/components/**/*.test.js --watch",
     "lint": "./node_modules/eslint/bin/eslint.js src/**",
@@ -35,6 +35,7 @@
     "easy-soap-request": "^2.5.0",
     "express": "^4.16.4",
     "express-pino-logger": "^4.0.0",
+    "json-api-serializer": "^2.1.0",
     "json-schema-ref-parser": "^7.1.1",
     "knex": "^0.17.1",
     "mysql": "^2.17.1",
