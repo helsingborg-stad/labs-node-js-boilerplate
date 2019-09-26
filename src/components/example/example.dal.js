@@ -3,6 +3,7 @@ const { responseSchema } = require('./example.schema');
 const { validate } = require('../../validation/validation');
 const logger = require('../../utils/logger');
 const jsonapi = require('../../jsonapi');
+const {ResourceNotFoundError} = require('../../utils/error')
 
 // Client for requesting thirdparty apis.
 const client = axios.create({
@@ -18,7 +19,21 @@ const client = axios.create({
  */
 
 const createPost = async (req) => {
-  // Method for creating a resource (in this case a post request towards the testapi)
+  // Write method for creating a resource
+  try {
+    const { body } = req
+    // Here we handle the creation of a resource
+
+    // In this case we create a fake response by returning the request body params.
+    const convertedData = {id: "10", body: body.body, title: body.title }
+    const response = jsonapi.serializer.serialize('example', convertedData);
+    return response
+
+  } catch (e) {
+    console.log(e)
+    const errorResponse = jsonapi.serializer.serializeError(error);
+    return errorResponse;
+  };
 };
 
 const create = {
@@ -71,7 +86,7 @@ const fetchOnePost = async (req) => {
 
 const read = {
   posts: fetchAllPosts,
-  post: fetchOnePost
+  post: fetchOnePost,
 };
 
 
@@ -79,12 +94,34 @@ const read = {
  * UPDATE RESOURCE METHODS
  */
 
-const updatePost = (req) => {
-  // Write method for updating the resource
+const updatePost = async (req) => {
+  try {
+    const { body, params } = req
+    // Here we handle the creation of a resource
+    // Check if resource exsists
+    const testApiUrl = `https://jsonplaceholder.typicode.com/posts/${params.id}`;
+
+    const resourceData = await client
+      .get(testApiUrl);
+
+    if (Object.keys(resourceData.data).length < 0) {
+        throw new ResourceNotFoundError('This resource does not exist');
+    }
+
+    // In this case we create a fake response by returning the request body params.
+    const convertedData = {id: params.id, title: body.title }
+    const response = await jsonapi.serializer.serialize('example', convertedData);
+    return response
+
+  } catch (e) {
+    console.log(e)
+    const errorResponse = await jsonapi.serializer.serializeError(e);
+    return errorResponse;
+  };
 };
 
 const update = {
-  posts: updatePost,
+  post: updatePost,
 };
 
 
@@ -92,12 +129,12 @@ const update = {
  * DELETE RESOURCE METHODS
  */
 
-const deletePost = (req) => {
+const deleteResourceMethod = (req) => {
   // Write method for deleting a resource
 };
 
 const del = {
-  post: deletePost,
+  resource: deleteResourceMethod,
 };
 
 
