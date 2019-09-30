@@ -8,13 +8,13 @@ const routes = () => {
 
   // Here we register what endpoints we want.
   router.get('/examples', async (req, res) => {
-    const response = await dal.read.posts(req);
-    return res.json(response);
+    const response = await dal.read.posts(req, res);
+    return response;
   });
 
   router.get('/examples/:id', async (req, res) => {
-    const response = await dal.read.post(req);
-    return res.json(response);
+    const response = await dal.read.post(req, res);
+    return response;
   });
 
   return router;
