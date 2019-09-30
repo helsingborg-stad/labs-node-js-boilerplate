@@ -1,30 +1,50 @@
 const Joi = require('@hapi/joi');
 const { id, limit } = require('../../validation/global.schema');
 
-// Generic Schema.
-const genericSchema = Joi.object().keys({
-  person_id: id.required(),
-});
+/**
+ * POST SCHEMAS
+ */
 
-const postSchema = Joi.object().keys({
-  person_id: id.required(),
-});
+const examplePostValidaionSchema = Joi.object().keys({
+  title: Joi.string().min(5).max(24).required(),
+  body: Joi.string().min(5).max(200),
+})
 
-const putSchema = Joi.object().keys({ });
+const post  = {
+  example: examplePostValidaionSchema,
+}
 
-const querySchema = Joi.object().keys({
-  person_id: id,
+
+/**
+ * PUT SCHEMAS
+ */
+
+const examplePutValidaionSchema = Joi.object().keys({
+  id,
+  title: Joi.string().min(5).max(24),
+  body: Joi.string().min(5).max(200),
+})
+
+const put  = {
+  example: examplePutValidaionSchema,
+};
+
+
+/**
+ * QUERY SCHEMAS
+ */
+
+const queryExampleValidationSchema = Joi.object().keys({
+  id,
   limit,
 });
 
-const responseSchema = Joi.object().keys({
-  person_id: id.required(),
-});
+const query = {
+  example: queryExampleValidationSchema
+}
 
 module.exports = {
-  genericSchema,
-  querySchema,
-  putSchema,
-  postSchema,
-  responseSchema,
+  post,
+  put,
+  query,
 };
