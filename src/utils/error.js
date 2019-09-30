@@ -13,11 +13,18 @@ class DomainError extends Error {
     // Ensure the name of this error is the same as the class name
     this.name = this.constructor.name;
     this.status = status;
-    this.detial = msg
+    this.detail = msg;
+
     // This clips the constructor invocation from the stack trace.
     // It's not absolutely essential, but it does make the stack trace a little nicer.
-    // Ssee Node.js reference.
+    // See Node.js reference.
     Error.captureStackTrace(this, this.constructor);
+  }
+}
+
+class ResourceNotFoundError extends DomainError {
+  constructor(msg) {
+    super(msg, 404);
   }
 }
 
@@ -89,4 +96,5 @@ module.exports = {
     WeakValidationError,
     ResourceNotFoundError
   }
+
 };

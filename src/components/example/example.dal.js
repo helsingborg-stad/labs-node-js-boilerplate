@@ -12,9 +12,14 @@ const createErrorResponse = async (error, res) => {
   return res.status(error.status).json(serializedData);
 };
 
-const createSuccessResponse = async (data, res, jsonapiType, converter) => {
-  const convertData = await jsonapi.convert[converter](data);
-  const serializedData = await jsonapi.serializer.serialize(jsonapiType, convertData);
+const createSuccessResponse = async (data, res, jsonapiType, converter = undefined) => {
+  let dataToSerialize = data
+  
+  if (converter){
+    dataToSerialize = await jsonapi.convert[converter](dataToSerialize);
+  }
+  
+  const serializedData = await jsonapi.serializer.serialize(jsonapiType, dataToSerialize);
   return res.json(serializedData)
 };
 
@@ -33,7 +38,19 @@ const tryAxiosRequest = async (callback) => {
  */
 
 const createPost = async (req, res) => {
-  // Method for creating a resource (in this case a post request towards the testapi)
+  // Write method for creating a resource
+  try {
+    const { body } = req
+    // Here we handle the creation of a resource
+
+    // In this case we create a fake response by returning the request body params.
+    const dataToSerialize = {id: "10", body: body.body, title: body.title }
+    return await createSuccessResponse(dataToSerialize, res, 'example');
+
+  } catch (e) {
+    console.log(e)
+    return await createErrorResponse(error, res)
+  };
 };
 
 const create = {
@@ -74,7 +91,7 @@ const fetchOnePost = async (req, res) => {
 
 const read = {
   posts: fetchAllPosts,
-  post: fetchOnePost
+  post: fetchOnePost,
 };
 
 
@@ -82,12 +99,33 @@ const read = {
  * UPDATE RESOURCE METHODS
  */
 
-const updatePost = (req, res) => {
-  // Write method for updating the resource
+
+const updatePost = async (req, res) => {
+  try {
+    const { body, params } = req
+    // Here we handle the creation of a resource
+    // Check if resource exsists
+    const testApiUrl = `https://jsonplaceholder.typicode.com/posts/${params.id}`;
+
+    const resourceData = await client
+      .get(testApiUrl);
+
+    if (Object.keys(resourceData.data).length < 0) {
+        throwCustomDomainError(404);
+    }
+
+    // In this case we create a fake response by returning the request body params.
+    const dataToSerialize = {id: params.id, title: body.title }
+ 
+    return createSuccessResponse(dataToSerialize, res, 'example');
+
+  } catch (e) {
+    return await createErrorResponse(error, res)
+  };
 };
 
 const update = {
-  posts: updatePost,
+  post: updatePost,
 };
 
 
@@ -95,12 +133,12 @@ const update = {
  * DELETE RESOURCE METHODS
  */
 
-const deletePost = (req, res) => {
+const deleteResourceMethod = (req) => {
   // Write method for deleting a resource
 };
 
 const del = {
-  post: deletePost,
+  resource: deleteResourceMethod,
 };
 
 
