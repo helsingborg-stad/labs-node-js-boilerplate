@@ -16,7 +16,7 @@ class DomainError extends Error {
     this.detail = msg;
     // This clips the constructor invocation from the stack trace.
     // It's not absolutely essential, but it does make the stack trace a little nicer.
-    // Ssee Node.js reference.
+    // See Node.js reference.
     Error.captureStackTrace(this, this.constructor);
   }
 }
@@ -59,4 +59,5 @@ module.exports = {
   InternalServerError,
   ValidationError,
   WeakValidationError,
+  ResourceNotFoundError
 };
