@@ -34,12 +34,6 @@ class InternalServerError extends DomainError {
   }
 }
 
-class ResourceNotFoundError extends DomainError {
-  constructor(msg) {
-    super(msg, 404);
-  }
-}
-
 class BadRequestError extends DomainError {
   constructor(msg) {
     super(msg, 400);
