@@ -30,6 +30,22 @@ executors:
       - image: circleci/buildpack-deps:stretch
 
 jobs:
+
+  lint:
+    working_directory: ~/application
+    docker:
+      - image: circleci/node:12.3.1
+    steps:
+      - run:
+          command: |
+            mkdir -p ~/reports
+            eslint ./src/ --format junit --output-file ~/reports/eslint.xml
+          when: always
+      - store_test_results:
+          path: ~/reports
+      - store_artifacts:
+          path: ~/reports
+
   node:
     working_directory: ~/application
     docker:
@@ -100,6 +116,13 @@ workflows:
                 - master
                 - develop
       - node:
+          filters:
+            branches:
+              only:
+                - master
+                - develop 
+                - /feature.*/
+      - lint:
           filters:
             branches:
               only:
