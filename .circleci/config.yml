@@ -124,7 +124,7 @@ jobs:
             git config user.name "CircleCI bot"
             git config user.email "circleci@circleci"
             npm version minor -m "Bumped version number to %s [ci skip]"
-            git push origin beta
+            git push origin master
             git push --tags
 
   set_pkg_number_beta:
@@ -146,7 +146,7 @@ jobs:
             git config user.name "CircleCI bot"
             git config user.email "circleci@circleci"
             npm version prerelease --preid=beta -m "Bumped version number to %s [ci skip]"
-            git push origin beta
+            git push origin develop
             git push --tags
 
 workflows:
