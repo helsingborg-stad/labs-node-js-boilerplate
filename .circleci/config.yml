@@ -146,7 +146,7 @@ jobs:
             git config user.name "CircleCI bot"
             git config user.email "circleci@circleci"
             npm version prerelease --preid=beta -m "Bumped version number to %s [ci skip]"
-            git push origin develop
+            git push origin HEAD:develop
             git push --tags
 
 workflows:
