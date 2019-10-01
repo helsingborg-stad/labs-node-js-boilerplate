@@ -159,6 +159,7 @@ workflows:
               only: 
                 - master
                 - develop
+                - deploy/test/build
       - node:
           filters:
             branches:
@@ -166,6 +167,7 @@ workflows:
                 - master
                 - develop 
                 - /feature.*/
+                - deploy/test/node
       - lint:
           filters:
             branches:
@@ -173,13 +175,16 @@ workflows:
                 - master
                 - develop 
                 - /feature.*/
+                - deploy/test/lint
       - set_pkg_number_release:
           filters:
             branches:
               only:
                 - master
+                - deploy/test/release
       - set_pkg_number_beta:
           filters:
             branches:
               only:
                 - develop
+                - deploy/test/beta
