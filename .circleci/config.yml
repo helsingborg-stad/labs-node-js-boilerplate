@@ -105,6 +105,50 @@ jobs:
           paths:
             - ./image.tar
 
+  set_pkg_number_release:
+    working_directory: ~/application
+    docker:
+      - image: circleci/node:12.3.1
+
+    steps:
+      # Add SSH key used for pushing code to GIT repo.
+      - add_ssh_keys:
+          fingerprints:
+            - "7b:cd:43:39:07:e5:19:96:ac:36:7d:bb:0d:ce:1d:bd"
+
+      - checkout
+
+      - run:
+          name: Bump package version [release]
+          command: |
+            git config user.name "CircleCI bot"
+            git config user.email "circleci@circleci"
+            npm version minor -m "Bumped version number to %s [ci skip]"
+            git push origin beta
+            git push --tags
+
+  set_pkg_number_beta:
+    working_directory: ~/application
+    docker:
+      - image: circleci/node:12.3.1
+
+    steps:
+      # Add SSH key used for pushing code to GIT repo.
+      - add_ssh_keys:
+          fingerprints:
+            - "7b:cd:43:39:07:e5:19:96:ac:36:7d:bb:0d:ce:1d:bd"
+
+      - checkout
+
+      - run:
+          name: Bump package version [beta]
+          command: |
+            git config user.name "CircleCI bot"
+            git config user.email "circleci@circleci"
+            npm version prerelease --preid=beta -m "Bumped version number to %s [ci skip]"
+            git push origin beta
+            git push --tags
+
 workflows:
   version: 2
   build-master:
@@ -129,3 +173,13 @@ workflows:
                 - master
                 - develop 
                 - /feature.*/
+      - set_pkg_number_release:
+          filters:
+            branches:
+              only:
+                - master
+      - set_pkg_number_beta:
+          filters:
+            branches:
+              only:
+                - develop
