@@ -13,8 +13,11 @@
 #
 # 1. Create a git repository.
 # 2. Link the git repository to circle ci
-# 4. Create a heroku container repository
-# 5. Run the build
+# 3. Go to "Checkout SSH keys in circleci"
+# 4. Add new checkout key and verify account access 
+# 5. Create a heroku container repository
+# 6. Enable deploy via status api on heroku
+# 7. Push branch to github
 #
 # More detailed information on how to complete this and enviroment
 # variables can be found in internal confluence documentation.
