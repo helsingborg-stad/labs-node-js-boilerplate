@@ -8,7 +8,7 @@
     "dev": "nodemon src/server.js | ./node_modules/.bin/pino-colada",
     "test": "NODE_ENV=test ./node_modules/.bin/mocha src/components/**/*.test.js",
     "test:watch": "./node_modules/.bin/mocha src/components/**/*.test.js --watch",
-    "lint": "./node_modules/eslint/bin/eslint.js src/**",
+    "lint": "eslint src/*",
     "migrate:latest": "./node_modules/.bin/knex --cwd src/db/ migrate:latest",
     "migrate:rollback": "./node_modules/.bin/knex --cwd src/db/ migrate:rollback",
     "setup": "node setup.js"
@@ -33,6 +33,7 @@
     "bookshelf": "^0.15.1",
     "dotenv": "^8.0.0",
     "easy-soap-request": "^2.5.0",
+    "eslint-config-prettier": "^6.3.0",
     "express": "^4.16.4",
     "express-pino-logger": "^4.0.0",
     "json-api-serializer": "^2.1.0",
