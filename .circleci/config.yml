@@ -44,7 +44,7 @@ jobs:
           command: |
             mkdir -p test-results/jest
             npm install jest
-            jest ./src/ --notify 
+            npm jest ./src/ --notify 
           when: always
 
       - store_test_results:
