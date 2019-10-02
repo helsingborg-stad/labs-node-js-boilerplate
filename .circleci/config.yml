@@ -43,7 +43,7 @@ jobs:
           name: Running jest test
           command: |
             mkdir -p test-results/jest
-            npm install jest --global
+            npm install jest
             jest ./src/ --notify 
           when: always
 
