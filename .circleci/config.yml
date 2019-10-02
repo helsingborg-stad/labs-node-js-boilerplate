@@ -42,12 +42,30 @@ jobs:
       # Check out the code in the project directory.
       - checkout
 
+      - restore_cache:
+          key: node-v1-{{ checksum "package.json" }}-{{ arch }}
+
+      - run: 
+          name: Install depencencys
+          command: npm install
+
+      - save_cache:
+          key: node-v1-{{ checksum "package.json" }}-{{ arch }}
+          paths:
+            - node_modules
+
       - run:
           name: Running eslint
           command: |
             mkdir -p test-results/eslint
             npm run lint
           when: always
+
+      # Persist temporary files (stored up to 30 days).
+      - persist_to_workspace:
+          root: ~/application
+          paths:
+            - node_modules
 
       - store_test_results:
           path: test-results/eslint
