@@ -43,14 +43,14 @@ jobs:
       - checkout
 
       - restore_cache:
-          key: node-v1-{{ checksum "package.json" }}-{{ arch }}
+          key: lint-v1-{{ checksum "package.json" }}-{{ arch }}
 
       - run: 
           name: Install depencencys
           command: npm install
 
       - save_cache:
-          key: node-v1-{{ checksum "package.json" }}-{{ arch }}
+          key: lint-v1-{{ checksum "package.json" }}-{{ arch }}
           paths:
             - node_modules
 
@@ -93,7 +93,7 @@ jobs:
           paths:
             - node_modules
       - run:
-          name: Run application tests
+          name: Run application tests (mocha)
           command: |
             mkdir -p test-results/node
             npm run test
