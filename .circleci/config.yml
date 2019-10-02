@@ -39,6 +39,9 @@ jobs:
     docker:
       - image: circleci/node:12.3.1
     steps:
+      # Check out the code in the project directory.
+      - checkout
+
       - run:
           name: Running eslint
           command: |
