@@ -40,18 +40,17 @@ jobs:
       - image: circleci/node:12.3.1
     steps:
       - run:
-          name: Running jest test
+          name: Running eslint
           command: |
-            mkdir -p test-results/jest
-            npm install jest --global
-            jest ./src/ --notify 
+            mkdir -p test-results/eslint
+            npm run lint
           when: always
 
       - store_test_results:
-          path: test-results/jest
+          path: test-results/eslint
 
       - store_artifacts:
-          path: test-results/jest
+          path: test-results/eslint
 
   node:
     working_directory: ~/application
