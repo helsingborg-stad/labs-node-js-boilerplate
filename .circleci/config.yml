@@ -40,14 +40,18 @@ jobs:
       - image: circleci/node:12.3.1
     steps:
       - run:
+          name: Running jest test
           command: |
-            mkdir -p ~/reports
-            eslint ./src/ --format junit --output-file ~/reports/eslint.xml
+            mkdir -p test-results/jest
+            npm install jest --global
+            jest ./src/ --notify 
           when: always
+
       - store_test_results:
-          path: ~/reports
+          path: test-results/jest
+
       - store_artifacts:
-          path: ~/reports
+          path: test-results/jest
 
   node:
     working_directory: ~/application
@@ -82,11 +86,11 @@ jobs:
 
       # Store logs.
       - store_test_results:
-          path: test-results
+          path: test-results/node
 
       # Store artifacts (example logs, binaries, etc).
       - store_artifacts:
-          path: test-results
+          path: test-results/node
 
   build:
     executor: docker-publisher
