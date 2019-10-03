@@ -13,8 +13,11 @@
 #
 # 1. Create a git repository.
 # 2. Link the git repository to circle ci
-# 4. Create a heroku container repository
-# 5. Run the build
+# 3. Go to "Checkout SSH keys in circleci"
+# 4. Add new checkout key and verify account access 
+# 5. Create a heroku container repository
+# 6. Enable deploy via status api on heroku
+# 7. Push branch to github
 #
 # More detailed information on how to complete this and enviroment
 # variables can be found in internal confluence documentation.
@@ -36,17 +39,41 @@ jobs:
     docker:
       - image: circleci/node:12.3.1
     steps:
-      - run:
-          command: |
-            mkdir -p ~/reports
-            eslint ./src/ --format junit --output-file ~/reports/eslint.xml
-          when: always
-      - store_test_results:
-          path: ~/reports
-      - store_artifacts:
-          path: ~/reports
+      # Check out the code in the project directory.
+      - checkout
 
-  node:
+      - restore_cache:
+          key: lint-v1-{{ checksum "package.json" }}-{{ arch }}
+
+      - run: 
+          name: Install depencencys
+          command: npm install
+
+      - save_cache:
+          key: lint-v1-{{ checksum "package.json" }}-{{ arch }}
+          paths:
+            - node_modules
+
+      - run:
+          name: Running eslint
+          command: |
+            mkdir -p test-results/eslint
+            npm run lint
+          when: always
+
+      # Persist temporary files (stored up to 30 days).
+      - persist_to_workspace:
+          root: ~/application
+          paths:
+            - node_modules
+
+      - store_test_results:
+          path: test-results/eslint
+
+      - store_artifacts:
+          path: test-results/eslint
+
+  unit:
     working_directory: ~/application
     docker:
       - image: circleci/node:12.3.1
@@ -55,7 +82,7 @@ jobs:
       - checkout
 
       - restore_cache:
-          key: node-v1-{{ checksum "package.json" }}-{{ arch }}
+          key: unit-v1-{{ checksum "package.json" }}-{{ arch }}
 
       - run: 
           name: Install depencencys
@@ -66,9 +93,9 @@ jobs:
           paths:
             - node_modules
       - run:
-          name: Run application tests
+          name: Run application tests (mocha)
           command: |
-            mkdir -p test-results/node
+            mkdir -p test-results/unit
             npm run test
 
       # Persist temporary files (stored up to 30 days).
@@ -79,11 +106,11 @@ jobs:
 
       # Store logs.
       - store_test_results:
-          path: test-results
+          path: test-results/unit
 
       # Store artifacts (example logs, binaries, etc).
       - store_artifacts:
-          path: test-results
+          path: test-results/unit
 
   build:
     executor: docker-publisher
@@ -119,7 +146,7 @@ jobs:
             git config user.name "CircleCI bot"
             git config user.email "circleci@circleci"
             npm version minor -m "Bumped version number to %s [ci skip]"
-            git push origin master
+            git push origin HEAD:master
             git push --tags
 
   set_pkg_number_beta:
@@ -151,14 +178,14 @@ workflows:
                 - master
                 - develop
                 - deploy/test/build
-      - node:
+      - unit:
           filters:
             branches:
               only:
                 - master
                 - develop 
                 - /feature.*/
-                - deploy/test/node
+                - deploy/test/unit
       - lint:
           filters:
             branches:
