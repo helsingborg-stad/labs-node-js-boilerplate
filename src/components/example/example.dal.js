@@ -1,6 +1,7 @@
+/* eslint-disable no-console */
 const axios = require('axios');
-const { responseSchema } = require('./example.schema');
-const { validate } = require('../../validation/validation');
+// const { responseSchema } = require('./example.schema');
+// const { validate } = require('../../validation/validation');
 const logger = require('../../utils/logger');
 const jsonapi = require('../../jsonapi');
 const {ResourceNotFoundError} = require('../../utils/error')
@@ -29,8 +30,8 @@ const createPost = async (req) => {
     const response = jsonapi.serializer.serialize('example', convertedData);
     return response
 
-  } catch (e) {
-    console.log(e)
+  } catch (error) {
+    console.log(error)
     const errorResponse = jsonapi.serializer.serializeError(error);
     return errorResponse;
   };
