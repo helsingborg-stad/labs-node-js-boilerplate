@@ -73,7 +73,7 @@ jobs:
       - store_artifacts:
           path: test-results/eslint
 
-  node:
+  unit:
     working_directory: ~/application
     docker:
       - image: circleci/node:12.3.1
@@ -82,7 +82,7 @@ jobs:
       - checkout
 
       - restore_cache:
-          key: node-v1-{{ checksum "package.json" }}-{{ arch }}
+          key: unit-v1-{{ checksum "package.json" }}-{{ arch }}
 
       - run: 
           name: Install depencencys
@@ -95,7 +95,7 @@ jobs:
       - run:
           name: Run application tests (mocha)
           command: |
-            mkdir -p test-results/node
+            mkdir -p test-results/unit
             npm run test
 
       # Persist temporary files (stored up to 30 days).
@@ -106,11 +106,11 @@ jobs:
 
       # Store logs.
       - store_test_results:
-          path: test-results/node
+          path: test-results/unit
 
       # Store artifacts (example logs, binaries, etc).
       - store_artifacts:
-          path: test-results/node
+          path: test-results/unit
 
   build:
     executor: docker-publisher
@@ -178,14 +178,14 @@ workflows:
                 - master
                 - develop
                 - deploy/test/build
-      - node:
+      - unit:
           filters:
             branches:
               only:
                 - master
                 - develop 
                 - /feature.*/
-                - deploy/test/node
+                - deploy/test/unit
       - lint:
           filters:
             branches:
