@@ -177,7 +177,6 @@ workflows:
               only: 
                 - master
                 - develop
-                - deploy/test/build
       - unit:
           filters:
             branches:
@@ -185,7 +184,6 @@ workflows:
                 - master
                 - develop 
                 - /feature.*/
-                - deploy/test/unit
       - lint:
           filters:
             branches:
@@ -193,13 +191,11 @@ workflows:
                 - master
                 - develop 
                 - /feature.*/
-                - deploy/test/lint
       - set_pkg_number_release:
           filters:
             branches:
               only:
                 - master
-                - deploy/test/release
           requires:
             - lint
             - unit
@@ -209,7 +205,6 @@ workflows:
             branches:
               only:
                 - develop
-                - deploy/test/beta
           requires:
             - lint
             - unit
