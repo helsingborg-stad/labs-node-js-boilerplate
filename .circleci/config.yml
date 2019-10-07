@@ -200,9 +200,17 @@ workflows:
               only:
                 - master
                 - deploy/test/release
+          requires:
+            - lint
+            - unit
+            - build
       - set_pkg_number_beta:
           filters:
             branches:
               only:
                 - develop
                 - deploy/test/beta
+          requires:
+            - lint
+            - unit
+            - build
