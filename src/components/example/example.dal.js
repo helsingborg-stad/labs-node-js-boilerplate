@@ -1,9 +1,7 @@
 /* eslint-disable no-console */
 const axios = require('axios');
-
-const { axiosOptions } = require('../../utils/constants');
-const { responseSchema } = require('./example.schema');
-const { validate } = require('../../validation/validation');
+// const { responseSchema } = require('./example.schema');
+// const { validate } = require('../../validation/validation');
 const logger = require('../../utils/logger');
 const jsonapi = require('../../jsonapi');
 const { throwCustomDomainError } = require('../../utils/error')
@@ -48,10 +46,11 @@ const createPost = async (req, res) => {
     // In this case we create a fake response by returning the request body params.
     const dataToSerialize = {id: "10", body: body.body, title: body.title }
     return await createSuccessResponse(dataToSerialize, res, 'example');
-
-  } catch (e) {
-    console.log(e)
-    return createErrorResponse(error, res)
+    
+  } catch (error) {
+    console.log(error)
+    const errorResponse = jsonapi.serializer.serializeError(error);
+    return errorResponse;
   };
 };
 
