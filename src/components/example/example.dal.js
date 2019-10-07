@@ -1,4 +1,6 @@
+/* eslint-disable no-console */
 const axios = require('axios');
+
 const { axiosOptions } = require('../../utils/constants');
 const { responseSchema } = require('./example.schema');
 const { validate } = require('../../validation/validation');
@@ -49,7 +51,7 @@ const createPost = async (req, res) => {
 
   } catch (e) {
     console.log(e)
-    return await createErrorResponse(error, res)
+    return createErrorResponse(error, res)
   };
 };
 

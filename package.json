@@ -1,14 +1,14 @@
 {
   "name": "helsingborg-io-boilerplate",
-  "version": "0.0.1",
+  "version": "0.0.2-beta.1",
   "description": "Boilerplate repository for nodejs based LABS projects.",
   "main": "server.js",
   "scripts": {
     "start": "NODE_ENV=production node src/server.js",
     "dev": "nodemon src/server.js | ./node_modules/.bin/pino-colada",
-    "test": "NODE_ENV=test ./node_modules/.bin/mocha src/components/**/*.test.js",
-    "test:watch": "./node_modules/.bin/mocha src/components/**/*.test.js --watch",
-    "lint": "./node_modules/eslint/bin/eslint.js src/**",
+    "test": "NODE_ENV=test nyc ./node_modules/.bin/mocha src/components/**/*.test.js",
+    "test:watch": "NODE_ENV=test nyc ./node_modules/.bin/mocha src/components/**/*.test.js --watch",
+    "lint": "eslint src/*",
     "migrate:latest": "./node_modules/.bin/knex --cwd src/db/ migrate:latest",
     "migrate:rollback": "./node_modules/.bin/knex --cwd src/db/ migrate:rollback",
     "setup": "node setup.js"
@@ -21,9 +21,11 @@
     "chai-http": "^4.3.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^6.3.0",
     "eslint-plugin-import": "^2.17.2",
     "mocha": "^6.1.4",
     "nodemon": "^1.19.0",
+    "nyc": "^14.1.1",
     "pino-colada": "^1.4.4"
   },
   "dependencies": {
