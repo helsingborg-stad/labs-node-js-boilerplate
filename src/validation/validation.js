@@ -9,28 +9,23 @@ const validationOptions = {
 };
 
 // Validating response with Joi
-const validate = (
-  input,
-  inpSchema,
-  options = validationOptions,
-) => new Promise((resolve, reject) => {
-  try {
-    const schema = Array.isArray(input)
-      ? Joi.array().items(inpSchema)
-      : inpSchema;
+const validate = (input, inpSchema, options = validationOptions) =>
+  new Promise((resolve, reject) => {
+    try {
+      const schema = Array.isArray(input) ? Joi.array().items(inpSchema) : inpSchema;
 
-    const result = Joi.validate(input, schema, options);
+      const result = Joi.validate(input, schema, options);
 
-    if (result.error) {
-      reject(new ValidationError('Validation failed', result.error));
-      return;
+      if (result.error) {
+        reject(new ValidationError('Validation failed', result.error));
+        return;
+      }
+
+      resolve(result);
+    } catch (error) {
+      reject(new InternalServerError(error.message));
     }
-
-    resolve(result);
-  } catch (error) {
-    reject(new InternalServerError(error.message));
-  }
-});
+  });
 
 module.exports = {
   validate,

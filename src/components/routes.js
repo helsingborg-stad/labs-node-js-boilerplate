@@ -11,5 +11,4 @@ const routes = () => {
   return router;
 };
 
-
 module.exports = routes;
