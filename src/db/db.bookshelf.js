@@ -2,8 +2,8 @@ const { bookshelf } = require('./db.client');
 
 bookshelf.plugin('registry');
 
-/*  EXAMPLES 
-    Implement your db models. 
+/*  EXAMPLES
+    Implement your db models.
     @docs: https://bookshelfjs.org/
 
     const Questions = bookshelf.Model.extend({
@@ -14,7 +14,7 @@ bookshelf.plugin('registry');
         choices() { return this.belongsToMany(OptionChoices); },
         type() { return this.hasOne(QuestionTypes); },
     });
-    
+
     const QuestionTypes = bookshelf.Model.extend({
         tableName: 'question_types',
         questions() { return this.belongsToMany(Questions); },
@@ -24,7 +24,6 @@ bookshelf.plugin('registry');
         questions: bookshelf.model('Questions', Questions),
         questionTypes: bookshelf.model('QuestionTypes', QuestionTypes),
     };
-*/ 
+*/
 
-module.exports = {
-};
+module.exports = {};

@@ -18,15 +18,15 @@ const validationOptions = {
  */
 const middleware = (schema, field = 'body', detailedError = false) => (req, res, next) => {
   validate(req[field], schema, validationOptions)
-    .then((validated) => {
+    .then(validated => {
       req[field] = validated;
       next();
     })
-    .catch((e) => {
-      logger.error(e);
+    .catch(error => {
+      logger.error(error);
 
       const err = detailedError
-        ? e
+        ? error
         : new WeakValidationError('Invalid request data. Please review request and try again.');
 
       res.json(jsonapi.serializer.serializeError(err))

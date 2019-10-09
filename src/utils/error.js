@@ -1,4 +1,3 @@
-
 /**
  * DomainError
  *
