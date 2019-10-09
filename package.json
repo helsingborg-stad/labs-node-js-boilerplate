@@ -1,6 +1,6 @@
 {
   "name": "helsingborg-io-boilerplate",
-  "version": "0.0.1",
+  "version": "0.0.2-beta.2",
   "description": "Boilerplate repository for nodejs based LABS projects.",
   "main": "server.js",
   "scripts": {
@@ -28,6 +28,7 @@
     "nodemon": "^1.19.0",
     "pino-colada": "^1.4.4",
     "prettier": "1.18.2"
+    "nyc": "^14.1.1",
   },
   "dependencies": {
     "@hapi/joi": "^15.0.1",

@@ -1,12 +1,12 @@
 const express = require('express');
 
-const person = require('./example/example.api');
+const example = require('./example/example.api');
 
 const routes = () => {
   const router = express.Router();
 
   // Register route to api-layer.
-  router.use('/', person());
+  router.use('/', example());
 
   return router;
 };
