@@ -1,7 +1,7 @@
+/* eslint-disable no-console */
 require('dotenv').config();
 
 const express = require('express');
-const https = require('https');
 const pino = require('express-pino-logger');
 const swaggerUi = require('swagger-ui-express');
 const bodyParser = require('body-parser');
@@ -14,7 +14,7 @@ const logger = require('./utils/logger');
 /**
  * Enviorment Variabels
  */
-const { PORT, API_BASE } = process.env;
+const { PORT } = process.env;
 
 /**
  * Init App
@@ -33,7 +33,7 @@ app.use(pino({ logger }));
  * Routes
  */
 
-app.use(routes());
+app.use('/api/v1', routes());
 
 /**
  * Swagger
