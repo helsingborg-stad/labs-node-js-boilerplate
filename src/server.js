@@ -62,10 +62,10 @@ jsonSchemaRefParser.dereference(swaggerDocument, (err, schema) => {
  * Listen on port specfied in env-file.
  */
 
-const server = app.listen({ port: PORT }, async () => {
+ app.listen({ port: PORT }, () => {
   logger.info(`Server started on port ${PORT}`);
   // webSocketServer.start();
 });
 
 // Export server to use it in tests.
-module.exports = server;
+module.exports = app;
