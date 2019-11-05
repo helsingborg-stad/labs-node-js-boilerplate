@@ -2,6 +2,7 @@
 const axios = require('axios');
 // const { responseSchema } = require('./example.schema');
 // const { validate } = require('../../validation/validation');
+const axiosOptions = require('../../utils/constants')
 const logger = require('../../utils/logger');
 const jsonapi = require('../../jsonapi');
 const { throwCustomDomainError } = require('../../utils/error')
@@ -14,11 +15,11 @@ const createErrorResponse = async (error, res) => {
 
 const createSuccessResponse = async (data, res, jsonapiType, converter = undefined) => {
   let dataToSerialize = data
-  
+
   if (converter){
     dataToSerialize = await jsonapi.convert[converter](dataToSerialize);
   }
-  
+
   const serializedData = await jsonapi.serializer.serialize(jsonapiType, dataToSerialize);
   return res.json(serializedData)
 };
@@ -39,19 +40,20 @@ const tryAxiosRequest = async (callback) => {
 
 const createPost = async (req, res) => {
   // Write method for creating a resource
-  try {
+  // try {
     const { body } = req
     // Here we handle the creation of a resource
 
+    console.log(body);
+
     // In this case we create a fake response by returning the request body params.
-    const dataToSerialize = {id: "10", body: body.body, title: body.title }
+    const dataToSerialize = {id: "10", body: body.body, title: body.title}
+
     return await createSuccessResponse(dataToSerialize, res, 'example');
-    
-  } catch (error) {
-    console.log(error)
-    const errorResponse = jsonapi.serializer.serializeError(error);
-    return errorResponse;
-  };
+  // } catch (error) {
+  //   const errorResponse = jsonapi.serializer.serializeError(error);
+  //   return errorResponse;
+  // };
 };
 
 const create = {
@@ -68,9 +70,9 @@ const fetchAllPosts = async (req, res) => {
   try {
     const testApiUrl = 'https://jsonplaceholder.typicode.com/posts';
 
-    const resourceData = await tryAxiosRequest( callback = () => axios.get(testApiUrl, axiosOptions));
+    const resourceData = await tryAxiosRequest(() => axios.get(testApiUrl, axiosOptions));
 
-    return createSuccessResponse(resourceData, res, 'example', 'apiResponse');
+    return await createSuccessResponse(resourceData, res, 'example', 'apiResponse');
   } catch (error) {
     return createErrorResponse(error, res)
   }
@@ -79,14 +81,14 @@ const fetchAllPosts = async (req, res) => {
 const fetchOnePost = async (req, res) => {
   // Write method for reading a resource (in this case a get request towards the testapi)
   try {
-    const { id } = req.params
+    const { id } = req.params;
     const testApiUrl = `https://jsonplaceholder.typicode.com/posts/${id}`;
 
-    const resourceData = await tryAxiosRequest( callback = () => axios.get(testApiUrl, axiosOptions) );
+    const resourceData = await tryAxiosRequest(() => axios.get(testApiUrl, axiosOptions) );
 
     return await createSuccessResponse(resourceData, res, 'example', 'apiResponse');
   } catch (error) {
-    return await createErrorResponse(error, res)
+    return createErrorResponse(error, res);
   }
 };
 
@@ -117,11 +119,11 @@ const updatePost = async (req, res) => {
 
     // In this case we create a fake response by returning the request body params.
     const dataToSerialize = {id: params.id, title: body.title }
- 
-    return createSuccessResponse(dataToSerialize, res, 'example');
+
+    return await createSuccessResponse(dataToSerialize, res, 'example');
 
   } catch (e) {
-    return await createErrorResponse(error, res)
+    return createErrorResponse(error, res)
   };
 };
 

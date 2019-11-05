@@ -18,13 +18,13 @@ const routes = () => {
   });
 
   router.post('/examples', Validator(post.example, 'body', true), async (req, res) => {
-    const response = await dal.create.post(req);
-    return res.json(response);
+    const response = await dal.create.post(req, res);
+    return response;
   });
 
   router.patch('/examples/:id', Validator(put.example, 'body', true), async (req, res) => {
-    const response = await dal.update.post(req);
-    return res.json(response);
+    const response = await dal.update.post(req, res);
+    return response;
   });
 
   return router;
